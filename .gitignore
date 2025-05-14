@@ -1,0 +1,12 @@
+*.h5
+*.so
+*.dylib
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.idea/
+.venv/
+visual/
