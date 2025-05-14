@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
+from PIL import Image
 
 
 def deteccacao():
@@ -57,7 +58,7 @@ def deteccacao():
         col1, col2 = st.columns(2)
 
         with col1:
-            st.image(img_resized, caption="Imagem enviada", width=350)
+            st.image(img_resized, caption="Imagem enviada", width=300)
 
         with col2:
             categorias = ["Com chapéu", "Sem chapéu"]
