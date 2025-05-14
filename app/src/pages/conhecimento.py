@@ -212,107 +212,139 @@ st.markdown(
 )
 
 
-st.header("5️⃣ Predição em Novas Imagens")
+st.header("5️⃣ Configuração Inicial")
 st.markdown(
     """
-<p style='margin-left: 20px';> Baixa novas imagens para testar de um zip chamado predict.zinp, extrai o zip para a pasta predict.</p>
+<p style='margin-left: 20px';>Iremos baixar as bibliotecas essenciais para reconhecer a imagem.</p>
 
-<p style='margin-left: 20px';>Código para download das imagens de teste:</p>
+<p style='margin-left: 20px';>Código:</p>
 """,
     unsafe_allow_html=True,
 )
 
 st.code(
     """
-
-url = "https://drive.google.com/uc?export=download&id=11LQr8df8FMAe_V6x8sfumkG-Mdj6_W62"
-urllib.request.urlretrieve(url, 'predict.zip')
-
-
-with zipfile.ZipFile('predict.zip', 'r') as zip_ref:
-    zip_ref.extractall('predict')
-
-
-print(os.listdir('predict'))
-""",
-    language="python",
+    import os
+    import gdown
+    import streamlit as st
+    import numpy as np
+    import matplotlib.pyplot as plt
+    from tensorflow.keras.models import load_model
+    from tensorflow.keras.preprocessing import image
+    """
 )
 
+st.header("6️⃣ Função Principal deteccacao()")
 st.markdown(
     """
-<p style='margin-left: 20px';>Classifica cada imagem usando o modelo treinado</p>
+<p style='margin-left: 20px';>Iremos baixar e carregar o modelo que foi treinado que esta salvo no Google Drive como meu_modelo.h5.</p>
+
+<p style='margin-left: 20px';>Código:</p>
 """,
     unsafe_allow_html=True,
 )
 
 st.code(
     """
-import numpy as np
-from tensorflow.keras.preprocessing import image
+        # Caminho para salvar o modelo localmente
+    model_path = "meu_modelo.h5"
 
-def carregar_imagem(caminho_img):
-    
+    # Baixar o modelo do Google Drive se ainda não estiver salvo
+    with st.spinner("Baixando o modelo... Isso pode demorar um pouco."):
+        if not os.path.exists(model_path):
+            url = "https://drive.google.com/uc?id=11SDM_KTSeNfTZxHoWz-lWsS1AH2F3xON"
+            gdown.download(url, model_path, quiet=False, use_cookies=False)
+
+            # Verifica se o arquivo baixado parece válido
+            if os.path.getsize(model_path) < 10000:
+                st.error("❌ Erro: o arquivo do modelo não foi baixado corretamente.")
+                st.stop()
+
+    # Carregar o modelo
+    model = load_model(model_path)
+    """
+)
+
+st.header("7️⃣ Pré-processamento de Imagens")
+st.markdown(
+    """
+<p style='margin-left: 20px';>Redemensionaremos a imagem para a mesma resolucao do treinamento.</p>
+
+<p style='margin-left: 20px';>Código:</p>
+""",
+    unsafe_allow_html=True,
+)
+
+st.code(
+    """def carregar_imagem(caminho_img):
     img = image.load_img(caminho_img, target_size=(128, 128))
-    
-    img_array = image.img_to_array(img) / 255.0
-    
-    img_array = np.expand_dims(img_array, axis=0)
-    return img_array
-""",
-    language="python",
+    img_array = image.img_to_array(img) / 255.0  # Normalização
+    return np.expand_dims(img_array, axis=0)
+        """
 )
 
+st.header("8️⃣ Função de Predição")
 st.markdown(
     """
-<p style='margin-left: 20px';>Mostra os resultados visualmente para as imagens com chapeu e sem chapeu</p>
+<p style='margin-left: 20px';>Iremos fazer a predicao da imagem, retornando a probabilidade dela .</p>
+
+<p style='margin-left: 20px';>Código:</p>
 """,
     unsafe_allow_html=True,
 )
 
 st.code(
     """
-
-for i in range(len(os.listdir('predict/predict_hat'))):
-    path = os.path.join('predict/predict_hat', os.listdir('predict/predict_hat')[i])
-    img = carregar_imagem(path)
-    predicao = model.predict(img)
-    
-    
-    img_plot = image.load_img(path, target_size=(128, 128))
-    plt.imshow(img_plot)
-    plt.axis('off')
-    plt.title("Sem chapéu" if predicao[0][0] > 0.5 else "Com chapéu")
-    plt.show()
-
-
-for i in range(len(os.listdir('predict/predict_no_hat'))):
-    path = os.path.join('predict/predict_no_hat', os.listdir('predict/predict_no_hat')[i])
-    img = carregar_imagem(path)
-    predicao = model.predict(img)
-    
-    img_plot = image.load_img(path, target_size=(128, 128))
-    plt.imshow(img_plot)
-    plt.axis('off')
-    plt.title("Sem chapéu" if predicao[0][0] > 0.5 else "Com chapéu")
-    plt.show()
-""",
-    language="python",
+    def predizer(imagem):
+    img_array = carregar_imagem(imagem)
+    pred = model.predict(img_array)[0][0]
+    return 1 - pred, pred  # (prob_com_chapeu, prob_sem_chapeu)"""
 )
 
+st.header("9️⃣ Upload de Imagem")
 st.markdown(
     """
-**Explicação:**
--  Baixamos um novo conjunto de imagens para teste
-- Criamos uma função auxiliar para carregar e pré-processar as imagens no mesmo formato usado no treinamento
-- Para cada imagem:
-   - Carregamos e pré-processamos
-   - Fazemos a predição com o modelo treinado
-   - Exibimos a imagem com o resultado da classificação
--    Usamos um threshold de 0.5 para decidir entre "Com chapéu" ou "Sem chapéu"
-"""
+<p style='margin-left: 20px';>Fazemos o upload da imagem no streamlit .</p>
+
+<p style='margin-left: 20px';>Código:</p>
+""",
+    unsafe_allow_html=True,
 )
 
+st.code(
+    """
+        uploaded_file = st.file_uploader(
+    "📤 Faça upload de uma imagem", 
+    type=["jpg", "jpeg", "png"]
+)"""
+)
 
+st.header("🔟 Exibição dos Resultados")
+st.markdown(
+    """
+<p style='margin-left: 20px';>Mostramos a imagem seleciona e ao lado dela um grafico de barras contendo a porcentagem.</p>
+
+<p style='margin-left: 20px';>Código:</p>
+""",
+    unsafe_allow_html=True,
+)
+
+st.code(
+    """
+    col1, col2 = st.columns(2)
+
+with col1:
+    st.image(img_resized, caption="Imagem enviada", width=350)
+
+with col2:
+    # Cria gráfico de barras
+    fig, ax = plt.subplots(figsize=(3, 2))
+    ax.bar(["Com chapéu", "Sem chapéu"], 
+           [prob_com_chapeu, prob_sem_chapeu], 
+           color=["#4CAF50", "#F44336"])
+    # Configurações visuais...
+    st.pyplot(fig)"""
+)
 st.markdown(
     """
     <p style='margin-left: 20px ; color: red; font-size:40px' >Agora você pode usar o modelo para classificar novas imagens de chapéus!</p>
