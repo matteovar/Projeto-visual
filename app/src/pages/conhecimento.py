@@ -20,7 +20,7 @@ st.markdown(
 )
 
 st.markdown(
-    """
+"""
 # Teórico
 
 ## Fundamentação Teórica Aplicada ao Projeto
