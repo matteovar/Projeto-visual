@@ -6,8 +6,7 @@ st.markdown(
     "<h1 style='text-align: center;'>🧢 Tutorial Identificador de Chapeu</h1>",
     unsafe_allow_html=True,
 )
-# Membros do Projeto
-# =============================================
+
 st.markdown(
     """
     <div >
@@ -20,14 +19,47 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+st.markdown(
+    """
+# Teórico
+
+## Fundamentação Teórica Aplicada ao Projeto
+
+### Objetivo Geral do Projeto
+
+O presente projeto tem como objetivo o desenvolvimento de um sistema inteligente capaz de **classificar imagens de indivíduos com ou sem chapéu**. A aplicação prática dessa tecnologia visa demonstrar como conceitos de inteligência artificial, aprendizado profundo e visão computacional podem ser aplicados a problemas reais com simplicidade e eficiência. Para tal, foi desenvolvido um modelo de rede neural convolucional (CNN) utilizando as bibliotecas TensorFlow e Keras, além de uma interface interativa desenvolvida com o framework Streamlit.
+
+### Redes Neurais Convolucionais (CNNs)
+As CNNs utilizam camadas convolucionais, que aplicam filtros sobre as imagens de entrada para extrair características importantes (como bordas, texturas, padrões), seguidas por camadas de pooling, que reduzem a dimensionalidade dos dados, e camadas densas (fully connected), que tomam decisões de classificação com base nos padrões extraídos.
+
+### Estrutura do Sistema
+
+O sistema foi dividido em três partes principais:
+
+1. **Modelagem e treinamento do modelo de IA**  
+   Um modelo CNN foi treinado com um dataset criado manualmente (521 imagens), dividido entre as classes "com chapéu" e "sem chapéu". O modelo atinge cerca de 98% de acurácia no conjunto de validação durante o treinamento e 85,7% em imagens de teste.
+
+2. **Construção da aplicação interativa**  
+   A aplicação Streamlit permite ao usuário enviar uma imagem de qualquer pessoa, visualizar a imagem carregada e receber como retorno a predição da rede neural com uma barra de porcentagem indicando a classe atribuída.
+
+3. **Integração e uso prático**  
+   O projeto final é capaz de **processar novas imagens em tempo real**, facilitando o consumo de IA sem a necessidade de conhecimento técnico por parte do usuário final. Todo o processo, desde o upload até a exibição do resultado, ocorre de maneira fluida e visualmente amigável.
+
+### Interpretação dos Resultados
+Mesmo com uma arquitetura relativamente simples, o modelo apresentou resultados robustos. A acurácia total foi de aproximadamente 85,7% em um conjunto de imagens não vistas durante o treinamento, com precisão perfeita na classe “com chapéu”. Essa performance evidencia a aplicabilidade prática de modelos de IA para tarefas visuais do cotidiano.
+
+Além disso, os resultados são exibidos de forma interativa na aplicação Streamlit, permitindo ao usuário final visualizar a imagem enviada, as probabilidades de classificação e a confiança da predição, com uma interface amigável e visual.
+""")
+
 
 st.markdown(
     """
-    
+    # Tutorial
     """
 )
 
-st.header("1️⃣ Download e Preparação dos Dados")
+
+st.markdown( """### 1️⃣ Download e Preparação dos Dados""")
 st.markdown(
     """
     <p style='margin-left: 20px;'>Vamos baixar e extrair o dataset de imagens para treinamento.</p>
@@ -69,7 +101,7 @@ st.markdown(
 )
 
 
-st.header("2️⃣ Pré-processamento das Imagens")
+st.markdown("""### 2️⃣ Pré-processamento das Imagens""")
 st.markdown(
     """
     <p style='margin-left: 20px';>Iremos transformar as imagens brutas em um formato padronizado que a rede neural consegue processar, já separando parte dos dados para teste durante o treinamento.</p>
@@ -125,7 +157,7 @@ st.markdown(
 )
 
 
-st.header("3️⃣ Construção do Modelo CNN")
+st.markdown("""### 3️⃣ Construção do Modelo CNN""")
 st.markdown(
     """
        <p style='margin-left: 20px';>Montamos uma estrutura da inteligência artificial que vai aprender a diferenciar imagens com chapéu de sem chapéu.</p>
@@ -168,7 +200,7 @@ st.markdown(
 )
 
 
-st.header("4️⃣ Compilação e Treinamento")
+st.markdown("""### 4️⃣ Compilação e Treinamento""")
 st.markdown(
     """
 <p style='margin-left: 20px';>Iremos ensinar a rede neural a reconhecer chapéus usando os dados preparados e guarda o conhecimento aprendido.</p>
@@ -212,7 +244,7 @@ st.markdown(
 )
 
 
-st.header("5️⃣ Configuração Inicial")
+st.markdown("""### 5️⃣ Configuração Inicial""")
 st.markdown(
     """
 <p style='margin-left: 20px';>Iremos baixar as bibliotecas essenciais para reconhecer a imagem.</p>
@@ -234,7 +266,7 @@ st.code(
     """
 )
 
-st.header("6️⃣ Função Principal deteccacao()")
+st.markdown("""### 6️⃣ Função Principal deteccacao()""")
 st.markdown(
     """
 <p style='margin-left: 20px';>Iremos baixar e carregar o modelo que foi treinado que esta salvo no Google Drive como meu_modelo.h5.</p>
@@ -265,7 +297,7 @@ st.code(
     """
 )
 
-st.header("7️⃣ Pré-processamento de Imagens")
+st.markdown("""### 7️⃣ Pré-processamento de Imagens""")
 st.markdown(
     """
 <p style='margin-left: 20px';>Redemensionaremos a imagem para a mesma resolucao do treinamento.</p>
@@ -283,7 +315,7 @@ st.code(
         """
 )
 
-st.header("8️⃣ Função de Predição")
+st.markdown("""### 8️⃣ Função de Predição""")
 st.markdown(
     """
 <p style='margin-left: 20px';>Iremos fazer a predicao da imagem, retornando a probabilidade dela .</p>
@@ -301,7 +333,7 @@ st.code(
     return 1 - pred, pred  # (prob_com_chapeu, prob_sem_chapeu)"""
 )
 
-st.header("9️⃣ Upload de Imagem")
+st.markdown("""### 9️⃣ Upload de Imagem""")
 st.markdown(
     """
 <p style='margin-left: 20px';>Fazemos o upload da imagem no streamlit .</p>
@@ -319,7 +351,7 @@ st.code(
 )"""
 )
 
-st.header("🔟 Exibição dos Resultados")
+st.markdown("""### 🔟 Exibição dos Resultados""")
 st.markdown(
     """
 <p style='margin-left: 20px';>Mostramos a imagem seleciona e ao lado dela um grafico de barras contendo a porcentagem.</p>
@@ -345,9 +377,11 @@ with col2:
     # Configurações visuais...
     st.pyplot(fig)"""
 )
+
+st.markdown(""" # Pratico""")
 st.markdown(
     """
-    <p style='margin-left: 20px ; color: red; font-size:40px' >Agora você pode usar o modelo para classificar novas imagens de chapéus!</p>
+    <p style='margin-left: 20px ; color: red; font-size:25px' >Agora você pode usar o modelo para classificar novas imagens de chapéus!</p>
 """,
     unsafe_allow_html=True,
 )
