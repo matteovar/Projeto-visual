@@ -387,3 +387,28 @@ st.markdown(
 )
 
 deteccacao()
+
+
+st.markdown = ("""
+## Referências
+
+DSA, E. Capítulo 47 - Reconhecimento de Imagens com Redes Neurais Convolucionais em Python – Parte 4 - Deep Learning Book. Disponível em: https://www.deeplearningbook.com.br/reconhecimento-de-imagens-com-redes-neurais-convolucionais-em-python-parte-4/. Acesso em: 03 de Abril de 2025.
+
+Streamlit. Documentação oficial do Streamlit. Disponível em: https://docs.streamlit.io. Acesso em: 15 de maio de 2025.
+
+Pandas. Guia do Usuário do Pandas. Disponível em: https://pandas.pydata.org/docs/user_guide/index.html. Acesso em: 15 de maio de 2025.
+
+Plotly. Documentação Python – Gráficos interativos com Plotly. Disponível em: https://plotly.com/python/. Acesso em: 15 de maio de 2025.
+
+TensorFlow. API do TensorFlow – Todos os símbolos. Disponível em: https://www.tensorflow.org/api_docs/python/tf/all_symbols. Acesso em: 15 de maio de 2025.
+
+TensorFlow. API do TensorFlow – Keras. Disponível em: https://www.tensorflow.org/api_docs/python/tf/keras. Acesso em: 15 de maio de 2025.
+
+Chollet, F. Deep Learning with Python. Manning Publications Co., 2018.
+
+Goodfellow, I.; Bengio, Y.; Courville, A. Deep Learning. MIT Press, 2016. Disponível em: https://www.deeplearningbook.org. Acesso em: 15 de maio de 2025.
+
+Raschka, S.; Mirjalili, V. Python Machine Learning. 3. ed. Packt Publishing, 2019.
+
+Geron, A. Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems. 2. ed. O'Reilly Media, 2019.
+""")
